@@ -2,7 +2,7 @@ import re
 import json
 
 
-def line_regex_name(line, current_link_info):  # if line contains name of link, save it to file names.json
+def line_regex_name(line, current_link_info):  # if line contains name of link, save it to object LinkInfo
     match = re.search(".+<http://rdf\\.freebase\\.com/ns/type\\.object\\.name>.+", line)
     if match:
         founded_name = re.search('\\".+\\"', line)
@@ -24,10 +24,10 @@ def line_regex_link(line, current_link_info):
 
 def write_LinkInfo_to_files(current_link_info):
     if current_link_info.name:
-        json_name = json.dumps({current_link_info.link: current_link_info.name})
+        json_name = json.dumps({"l":current_link_info.link, "n":current_link_info.name})
         names_file.write(json_name + ",\n")
     if current_link_info.neighbours:
-        json_neighbours = json.dumps({current_link_info.link: current_link_info.neighbours})
+        json_neighbours = json.dumps({"l":current_link_info.link, "n":current_link_info.neighbours})
         links_file.write(json_neighbours + ",\n")
 
 
@@ -44,10 +44,10 @@ class LinkInfo:
 # START OF PROGRAM
 
 # TODO pri otvoreni suboru pridat na zaciatok {
-names_file = open('names.txt', 'a', encoding="utf8")
-links_file = open('links.txt', 'a', encoding="utf8")
+names_file = open('names_pokus.txt', 'a', encoding="utf8")
+links_file = open('links_pokus.txt', 'a', encoding="utf8")
 
-freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-head-1000000", "r", encoding="utf8")
+freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase.pokus", "r", encoding="utf8")
 
 current_link = None
 last_link = None
@@ -77,4 +77,9 @@ while 1:
 # TODO pri zatvarani suboru pridat na koniec } POZOR bude tam posledna ciarka, ktoru asi treba vymazat
 
 freebase_dump_file.close()
+names_file.close()
+links_file.close()
+
+# the files links.txt and names.txt are created
+
 
