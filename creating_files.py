@@ -46,10 +46,10 @@ class LinkInfo:
 # START OF PROGRAM
 start_time = time.time()
 
-names_file = open('names_1000000.txt', 'a', encoding="utf8")
-links_file = open('links_1000000.txt', 'a', encoding="utf8")
+names_file = open('names_10_milionov.txt', 'a', encoding="utf8")
+links_file = open('links_10_milionov.txt', 'a', encoding="utf8")
 
-freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-head-1000000", "r", encoding="utf8")
+freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-head-10000000", "r", encoding="utf8")
 
 current_link = None
 last_link = None
