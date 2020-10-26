@@ -1,4 +1,7 @@
 import json
+import time
+
+start_time = time.time()
 links_file = open("links_1000000.txt", "r", encoding="utf8")
 
 page_ranks = {'key': list([0.25, 0])}
@@ -16,10 +19,12 @@ while(1):
         page_ranks[neighbour] = list([0.25, 0])
 
 # now, the dict is initialized to default pageranks for all pages, which were in file links
+print("pocet zaznamov v dictionary")
+print(len(page_ranks.keys()))
 
 # PageRank algo starts
 
-for iteration in range(5):
+for iteration in range(80):
     links_file.seek(0)
 
     while(1):
@@ -46,4 +51,5 @@ for link in page_ranks:
         max_PR_value = page_ranks[link][0]
 
 print("link s max PR: " + max_PR_link)
-print("hodnota PR: " + "{:.5f}".format(max_PR_value))
+print("hodnota PR: " + "{:.100f}".format(max_PR_value))
+print("--- %s seconds ---" % (time.time() - start_time))

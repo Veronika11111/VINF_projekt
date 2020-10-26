@@ -1,5 +1,6 @@
 import re
 import json
+import time
 
 
 def line_regex_name(line, current_link_info):  # if line contains name of link, save it to object LinkInfo
@@ -19,7 +20,7 @@ def line_regex_link(line, current_link_info):
             start_position_link2 = line.rfind("<http://rdf.freebase.com/ns/") + 28
             end_of_link_position = line.rfind(">")
             link2 = line[start_position_link2:end_of_link_position]
-            current_link_info.neighbours.append(link2)
+            current_link_info.neighbours.add(link2)
 
 
 def write_LinkInfo_to_files(current_link_info):
@@ -27,27 +28,28 @@ def write_LinkInfo_to_files(current_link_info):
         json_name = json.dumps({"l":current_link_info.link, "n":current_link_info.name})
         names_file.write(json_name + ",\n")
     if current_link_info.neighbours:
-        json_neighbours = json.dumps({"l":current_link_info.link, "n":current_link_info.neighbours})
+        neighbours_list = list(current_link_info.neighbours)
+        json_neighbours = json.dumps({"l":current_link_info.link, "n":neighbours_list})
         links_file.write(json_neighbours + ",\n")
 
 
 class LinkInfo:
     link = None
     name = None
-    neighbours = list()
+    neighbours = set()
 
     def __init__(self, link):
         self.link = link
-        self.neighbours = []
+        self.neighbours = set()
         self.name = None
 
 # START OF PROGRAM
+start_time = time.time()
 
-# TODO pri otvoreni suboru pridat na zaciatok {
-names_file = open('names_pokus.txt', 'a', encoding="utf8")
-links_file = open('links_pokus.txt', 'a', encoding="utf8")
+names_file = open('names_1000000.txt', 'a', encoding="utf8")
+links_file = open('links_1000000.txt', 'a', encoding="utf8")
 
-freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase.pokus", "r", encoding="utf8")
+freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-head-1000000", "r", encoding="utf8")
 
 current_link = None
 last_link = None
@@ -74,12 +76,14 @@ while 1:
     line_regex_name(dump_line, current_link)
     line_regex_link(dump_line, current_link)
 
-# TODO pri zatvarani suboru pridat na koniec } POZOR bude tam posledna ciarka, ktoru asi treba vymazat
+
 
 freebase_dump_file.close()
 names_file.close()
 links_file.close()
 
+print("subory su vytvorene")
+print("--- %s seconds ---" % (time.time() - start_time))
 # the files links.txt and names.txt are created
 
 
