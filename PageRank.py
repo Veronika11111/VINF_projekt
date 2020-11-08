@@ -26,7 +26,6 @@ print(len(page_ranks.keys()))
 # PageRank algo starts
 
 for iteration in range(80):
-#    print("{:.20f}".format(page_ranks["music.composer"][0]))
     links_file.seek(0)
 
     while(1):

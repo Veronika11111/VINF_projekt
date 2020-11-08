@@ -1,6 +1,7 @@
 import re
 import json
 import time
+import gzip
 
 
 def line_regex_name(line, current_link_info):  # if line contains name of link, save it to object LinkInfo
@@ -44,18 +45,26 @@ class LinkInfo:
         self.name = None
 
 # START OF PROGRAM
+
+
+number_of_lines_to_read = int(input("Please enter number of lines to read:"))
+print(number_of_lines_to_read)
+
 start_time = time.time()
 
-names_file = open('names_10_milionov.txt', 'a', encoding="utf8")
-links_file = open('links_10_milionov.txt', 'a', encoding="utf8")
+names_file = open('names_'+str(number_of_lines_to_read)+'.txt', 'w', encoding="utf8")
+links_file = open('links_'+str(number_of_lines_to_read)+'.txt', 'w', encoding="utf8")
 
-freebase_dump_file = open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-head-10000000", "r", encoding="utf8")
+freebase_dump_file = gzip.open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-rdf-latest.gz", "rt", encoding="utf8")
 
 current_link = None
 last_link = None
 
-while 1:
+number_of_read_lines = 0
+
+while number_of_read_lines < number_of_lines_to_read:
     dump_line = freebase_dump_file.readline()
+    number_of_read_lines = number_of_read_lines + 1
     # if it is EOF
     if not dump_line:
         write_LinkInfo_to_files(current_link)
