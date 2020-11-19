@@ -15,7 +15,7 @@ def line_regex_name(line, current_link_info):  # if line contains name of link, 
 
 
 def line_regex_link(line, current_link_info):
-    if line.find("<http://rdf.freebase.com/ns/type.object.type>") == -1 and line.find("www.w3.org") == -1:
+    if line.find("<http://rdf.freebase.com/ns/type>") == -1 and line.find("www.w3.org") == -1 and line.find("common.") == -1 and line.find("base.type_ontology.") == -1 and line.find("measurement_unit.") == -1:
         match = re.search("<http://rdf\\.freebase\\.com/ns.{28,}<http://rdf.freebase.com/ns/.+", line)
         if match:
             start_position_link2 = line.rfind("<http://rdf.freebase.com/ns/") + 28
