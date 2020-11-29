@@ -1,0 +1,8 @@
+links_file = open("links_5000000.txt", "r", encoding="utf8")
+
+# initialization of page_ranks dict
+for i in range(1000):
+    line = links_file.readline()
+    if not line:
+        break
+    print(line)

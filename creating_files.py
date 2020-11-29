@@ -55,7 +55,7 @@ start_time = time.time()
 names_file = open('names_'+str(number_of_lines_to_read)+'.txt', 'w', encoding="utf8")
 links_file = open('links_'+str(number_of_lines_to_read)+'.txt', 'w', encoding="utf8")
 
-freebase_dump_file = gzip.open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase-rdf-latest.gz", "rt", encoding="utf8")
+freebase_dump_file = gzip.open("C:\\Users\\Veronika\\Documents\\ING\\VINF\\freebase\\freebase-rdf-latest.gz", "rt", encoding="utf8")
 
 current_link = None
 last_link = None

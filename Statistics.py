@@ -18,15 +18,15 @@ def find_name(link):
         if name_object.get("l") == link:
             return name_object.get("n")
 
-    return None
+    return "not found"
 
 
-file_suffix = "10_milionov_c"
-results_file = open("results_file_" + file_suffix + ".txt", "r", encoding="utf8")
-final_results_file = open("final_results_" + file_suffix + ".txt", "w", encoding="utf8")
-names_file = open("names_10_milionov.txt", "r", encoding="utf8")
+file_suffix = "50000000"
+results_file = open("results_file_" + file_suffix + "_d.txt", "r", encoding="utf8")
+final_results_file = open("final_results_" + file_suffix + "_d.txt", "w", encoding="utf8")
+names_file = open("names_" + file_suffix + ".txt", "r", encoding="utf8")
 
-default_pr = 0.0001
+default_pr = 1000
 counter = 0
 links_with_default_pr = []
 
@@ -44,10 +44,7 @@ while counter < 20:
 
     counter = counter + 1
     final_results_file.write("----- " + str(counter) + ". -----\n")
-    if name:
-        final_results_file.write("Name: " + name + "\n")
-    else:
-        final_results_file.write("Name: not found" + "\n")
+    final_results_file.write("Name: " + name + "\n")
     final_results_file.write("Link: " + link + "\n")
     final_results_file.write("PageRank = " + "{:.10f}".format(page_rank) + "\n\n")
 

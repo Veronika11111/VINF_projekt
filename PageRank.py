@@ -2,12 +2,13 @@ import json
 import time
 
 start_time = time.time()
-files_suffix = "1000000000"
+files_suffix = "50000000"
 links_file = open("links_" + files_suffix + ".txt", "r", encoding="utf8")
-iterations_file = open("iterations_" + files_suffix + ".txt", "w", encoding="utf8")
+iterations_file = open("iterations_" + files_suffix + "_d.txt", "w", encoding="utf8")
 
 page_ranks = dict()
-default_page_rank = 0.25
+default_page_rank = 1000
+threshold_value = 0.001
 
 # initialization of page_ranks dict
 for line in links_file:
@@ -21,7 +22,7 @@ for line in links_file:
 # now, the dict is initialized to default pageranks for all pages, which were in file links
 print("dictionary inicializovaná")
 
-threshold_value = 0.01
+
 biggest_change = 100        # only for beginning
 
 # PageRank algo starts
@@ -64,7 +65,7 @@ iterations_file.write("threshold= " + "{:.5f}".format(threshold_value) + "\n")
 iterations_file.write("--- %s seconds ---" % (time.time() - start_time))
 
 # writing results to results_file
-results_file = open('results_file_' + files_suffix + '.txt', 'w', encoding="utf8")
+results_file = open('results_file_' + files_suffix + '_d.txt', 'w', encoding="utf8")
 
 for link, pr_values in sorted(page_ranks.items(), key=lambda item: item[1][0], reverse=True):
     results_file.write(link + ":" + "{:.20}".format(pr_values[0]) + "\n")
